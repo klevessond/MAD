@@ -96,9 +96,6 @@ class Refeicao(models.Model):
     receita = models.ForeignKey(Receita, on_delete=models.CASCADE)
 
 
-   
-
-
 class PostagemUsuario(models.Model):
     autor = models.ForeignKey(User, on_delete=models.CASCADE)
     conteudo = models.TextField()
