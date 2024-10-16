@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 function Home() {
   const [user, setUser] = useState(null);
-  const [recipes, setRecipes] = useState([]);
+  const [receitas, setReceitas] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -12,7 +12,7 @@ function Home() {
       navigate('/login');
     } else {
       fetchUserData();
-      fetchRecipes();
+      fetchReceitas();
     }
   }, [navigate]);
 
@@ -27,12 +27,12 @@ function Home() {
     }
   };
 
-  const fetchRecipes = async () => {
+  const fetchReceitas = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/recipes/', {
+      const response = await axios.get('http://localhost:8000/api/receitas/', {
         headers: { Authorization: `Token ${localStorage.getItem('token')}` }
       });
-      setRecipes(response.data);
+      setReceitas(response.data);
     } catch (error) {
       console.error('Erro ao buscar receitas:', error);
     }
@@ -55,12 +55,14 @@ function Home() {
       )}
       <h2>Receitas Recentes</h2>
       <ul>
-        {recipes.map(recipe => (
-          <li key={recipe.id}>{recipe.title}</li>
+        {receitas.map(receita => (
+          <li key={receita.id}>
+            <Link to={`/receita/${receita.id}`}>{receita.titulo}</Link>
+          </li>
         ))}
       </ul>
       {user && user.user_type === 'nutricionista' && (
-        <Link to="/create-recipe">Criar Nova Receita</Link>
+        <Link to="/criar-receita">Criar Nova Receita</Link>
       )}
     </div>
   );
