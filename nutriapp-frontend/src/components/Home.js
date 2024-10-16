@@ -62,7 +62,16 @@ function Home() {
         ))}
       </ul>
       {user && user.user_type === 'nutricionista' && (
-        <Link to="/criar-receita">Criar Nova Receita</Link>
+        <div>
+          <h3>Opções para Nutricionistas:</h3>
+          <ul>
+            <li><Link to="/criar-receita">Criar Nova Receita</Link></li>
+            <li><Link to="/cadastrar-artigo">Cadastrar Artigo</Link></li>
+            <li><Link to="/cadastrar-refeicao">Cadastrar Refeição</Link></li>
+            <li><Link to="/cadastrar-plano-alimentar">Cadastrar Plano Alimentar</Link></li>
+            <li><Link to="/cadastrar-postagem">Cadastrar Postagem</Link></li>
+          </ul>
+        </div>
       )}
     </div>
   );
