@@ -8,8 +8,8 @@ function CriarReceita() {
   const [modoPreparo, setModoPreparo] = useState('');
   const [tempoPreparo, setTempoPreparo] = useState('');
   const [dificuldade, setDificuldade] = useState('');
-  const [categorias, setCategorias] = useState([]);
   const [categoriaId, setCategoriaId] = useState('');
+  const [categorias, setCategorias] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,20 +29,26 @@ function CriarReceita() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const receitaData = {
+      titulo,
+      descricao,
+      modo_preparo: modoPreparo,
+      tempo_preparo: parseInt(tempoPreparo),
+      dificuldade,
+      categoria: parseInt(categoriaId)
+    };
+    console.log('Dados da receita:', receitaData);
     try {
-      await axios.post('http://localhost:8000/api/receitas/', {
-        titulo,
-        descricao,
-        modo_preparo: modoPreparo,
-        tempo_preparo: parseInt(tempoPreparo),
-        dificuldade,
-        categoria: parseInt(categoriaId)
-      }, {
+      const response = await axios.post('http://localhost:8000/api/receitas/', receitaData, {
         headers: { Authorization: `Token ${localStorage.getItem('token')}` }
       });
+      console.log('Resposta do servidor:', response.data);
       navigate('/');
     } catch (error) {
       console.error('Erro ao criar receita:', error);
+      if (error.response) {
+        console.error('Detalhes do erro:', error.response.data);
+      }
     }
   };
 

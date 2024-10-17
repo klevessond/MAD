@@ -44,7 +44,12 @@ class CategoriaReceitaSerializer(serializers.ModelSerializer):
 class ReceitaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Receita
-        fields = '__all__'
+        fields = ['id', 'titulo', 'descricao', 'modo_preparo', 'tempo_preparo', 'dificuldade', 'categoria', 'autor']
+        read_only_fields = ['autor']
+
+    def create(self, validated_data):
+        validated_data['autor'] = self.context['request'].user
+        return super().create(validated_data)
 
 class ImagemReceitaSerializer(serializers.ModelSerializer):
     class Meta:

@@ -70,6 +70,10 @@ function Home() {
             <li><Link to="/criar-refeicao">Cadastrar Refeição</Link></li>
             <li><Link to="/criar-plano-alimentar">Cadastrar Plano Alimentar</Link></li>
             <li><Link to="/criar-postagem">Cadastrar Postagem</Link></li>
+            <li><Link to="/categorias-receitas">Listar Categorias de Receitas</Link></li>
+            <li><Link to="/criar-categoria-receita">Criar Categoria de Receita</Link></li>
+            <li><Link to="/editar-postagem/:id">Editar Postagem</Link></li>
+            <li><Link to="/editar-categoria-receita/:id">Editar Categoria de Receita</Link></li>
           </ul>
         </div>
       )}

@@ -13,10 +13,10 @@ import CriarRefeicao from './components/CriarRefeicao';
 import DetalhesRefeicao from './components/DetalhesRefeicao';
 import CriarPostagem from './components/CriarPostagem';
 import DetalhesPostagem from './components/DetalhesPostagem';
-
-
-
-
+import EditarPostagem from './components/EditarPostagem';
+import ListarCategoriasReceitas from './components/ListarCategoriasReceitas';
+import CriarCategoriaReceita from './components/CriarCategoriaReceita';
+import EditarCategoriaReceita from './components/EditarCategoriaReceita';
 
 function App() {
   return (
@@ -36,7 +36,10 @@ function App() {
           <Route path="/refeicao/:id" element={<DetalhesRefeicao />} />
           <Route path="/criar-postagem" element={<CriarPostagem />} />
           <Route path="/postagem/:id" element={<DetalhesPostagem />} />
-
+          <Route path="/editar-postagem/:id" element={<EditarPostagem />} />
+          <Route path="/categorias-receitas" element={<ListarCategoriasReceitas />} />
+          <Route path="/criar-categoria-receita" element={<CriarCategoriaReceita />} />
+          <Route path="/editar-categoria-receita/:id" element={<EditarCategoriaReceita />} />
         </Routes>
       </div>
     </Router>

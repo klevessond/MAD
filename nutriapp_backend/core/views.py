@@ -65,6 +65,10 @@ class ReceitaViewSet(viewsets.ModelViewSet):
     serializer_class = ReceitaSerializer
     permission_classes = [IsAuthenticated]
 
+    def create(self, request, *args, **kwargs):
+        print("Dados recebidos:", request.data)
+        return super().create(request, *args, **kwargs)
+
 class ImagemReceitaViewSet(viewsets.ModelViewSet):
     queryset = ImagemReceita.objects.all()
     serializer_class = ImagemReceitaSerializer
