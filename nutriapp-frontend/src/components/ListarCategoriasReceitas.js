@@ -31,7 +31,7 @@ function ListarCategoriasReceitas() {
           </li>
         ))}
       </ul>
-      <Link to="/criar-categoria-receita">Criar Nova Categoria</Link>
+      <Link to="/CriarCategoriaReceita">Criar Nova Categoria</Link>
     </div>
   );
 }

@@ -41,12 +41,12 @@ function ListarReceitas() {
           <li key={receita.id}>
             <Link to={`/receita/${receita.id}`}>{receita.titulo}</Link>
             {usuarioLogado && usuarioLogado.id === receita.autor && (
-              <Link to={`/editar-receita/${receita.id}`}> (Editar)</Link>
+              <Link to={`/EditarReceita/${receita.id}`}> (Editar)</Link>
             )}
           </li>
         ))}
       </ul>
-      <Link to="/criar-receita">Criar Nova Receita</Link>
+      <Link to="/CriarReceita">Criar Nova Receita</Link>
     </div>
   );
 }

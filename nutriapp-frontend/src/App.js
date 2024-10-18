@@ -4,9 +4,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Home from './components/Home';
 import CriarReceita from './components/CriarReceita';
-import DetalhesReceita from './components/DetalhesReceita';
 import CriarPlanoAlimentar from './components/CriarPlanoAlimentar';
-import DetalhesPlanoAlimentar from './components/DetalhesPlanoAlimentar';
 import CriarArtigo from './components/CriarArtigo';
 import DetalhesArtigo from './components/DetalhesArtigo';
 import CriarRefeicao from './components/CriarRefeicao';
@@ -38,31 +36,28 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/criar-receita" element={<CriarReceita />} />
-          <Route path="/receita/:id" element={<DetalhesReceita />} />
-          <Route path="/criar-artigo" element={<CriarArtigo />} />
-          <Route path="/artigo/:id" element={<DetalhesArtigo />} />
-          <Route path="/criar-refeicao" element={<CriarRefeicao />} />
-          <Route path="/refeicao/:id" element={<DetalhesRefeicao />} />
-          <Route path="/criar-postagem" element={<CriarPostagem />} />
-          <Route path="/postagem/:id" element={<DetalhesPostagem />} />
-          <Route path="/editar-postagem/:id" element={<EditarPostagem />} />
-          <Route path="/categorias-receitas" element={<ListarCategoriasReceitas />} />
-          <Route path="/criar-categoria-receita" element={<CriarCategoriaReceita />} />
-          <Route path="/editar-categoria-receita/:id" element={<EditarCategoriaReceita />} />
-          <Route path="/receitas" element={<ListarReceitas />} />
-          <Route path="/editar-receita/:id" element={<EditarReceita />} />
-          <Route path="/categorias-artigos" element={<ListarCategoriasArtigo />} />
-          <Route path="/criar-categoria-artigo" element={<CriarCategoriaArtigo />} />
-          <Route path="/editar-categoria-artigo/:id" element={<EditarCategoriaArtigo />} />
-          <Route path="/artigos" element={<ListarArtigos />} />
-          <Route path="/editar-artigo/:id" element={<EditarArtigo />} />
-          <Route path="/refeicoes" element={<ListarRefeicoes />} />
-          <Route path="/editar-refeicao/:id" element={<EditarRefeicao />} />
-          <Route path="/planos-alimentares" element={<ListarPlanoAlimentar />} />
-          <Route path="/criar-plano-alimentar" element={<CriarPlanoAlimentar />} />
-          <Route path="/editar-plano-alimentar/:id" element={<EditarPlanoAlimentar />} />
+          <Route path="/CriarReceita" element={<CriarReceita />} />          
+          <Route path="/CriarArtigo" element={<CriarArtigo />} />
+          <Route path="/ListarArtigos" element={<ListarArtigos />} />
+          <Route path="/CriarRefeicao" element={<CriarRefeicao />} />
+          <Route path="/ListarRefeicoes" element={<ListarRefeicoes />} />
+          <Route path="/CriarPostagem" element={<CriarPostagem />} />
           <Route path="/ListarPostagens" element={<ListarPostagens />} />
+          <Route path="/EditarPostagem/:id" element={<EditarPostagem />} />
+          <Route path="/ListarCategoriasReceitas" element={<ListarCategoriasReceitas />} />
+          <Route path="/CriarCategoriaReceita" element={<CriarCategoriaReceita />} />
+          <Route path="/EditarCategoriaReceita/:id" element={<EditarCategoriaReceita />} />
+          <Route path="/ListarReceitas" element={<ListarReceitas />} />
+          <Route path="/EditarReceita/:id" element={<EditarReceita />} />
+          <Route path="/ListarCategoriasArtigo" element={<ListarCategoriasArtigo />} />
+          <Route path="/CriarCategoriaArtigo" element={<CriarCategoriaArtigo />} />
+          <Route path="/EditarCategoriaArtigo/:id" element={<EditarCategoriaArtigo />} />
+          <Route path="/EditarArtigo/:id" element={<EditarArtigo />} />
+          <Route path="/EditarRefeicao/:id" element={<EditarRefeicao />} />
+          <Route path="/ListarPlanoAlimentar" element={<ListarPlanoAlimentar />} />
+          <Route path="/CriarPlanoAlimentar" element={<CriarPlanoAlimentar />} />
+          <Route path="/EditarPlanoAlimentar/:id" element={<EditarPlanoAlimentar />} />
+          
         </Routes>
       </div>
     </Router>

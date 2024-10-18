@@ -55,14 +55,14 @@ function ListarCategoriasArtigo() {
             {categoria.nome}
             {usuarioLogado && usuarioLogado.is_staff && (
               <>
-                <Link to={`/editar-categoria-artigo/${categoria.id}`}> (Editar)</Link>
+                <Link to={`/EditarCategoriaReceita/${categoria.id}`}> (Editar)</Link>
                 <button onClick={() => handleDelete(categoria.id)}>Excluir</button>
               </>
             )}
           </li>
         ))}
       </ul>
-      <Link to="/criar-categoria-artigo">Criar Nova Categoria</Link>
+      <Link to="/CriarCategoriaArtigo">Criar Nova Categoria</Link>
     </div>
   );
 }

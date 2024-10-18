@@ -55,14 +55,14 @@ function ListarRefeicoes() {
             {refeicao.nome} - {refeicao.tipo}
             {usuarioLogado && (
               <>
-                <Link to={`/editar-refeicao/${refeicao.id}`}> (Editar)</Link>
+                <Link to={`/EditarRefeicao/${refeicao.id}`}> (Editar)</Link>
                 <button onClick={() => handleDelete(refeicao.id)}>Excluir</button>
               </>
             )}
           </li>
         ))}
       </ul>
-      <Link to="/criar-refeicao">Criar Nova Refeição</Link>
+      <Link to="/CriarRefeicao">Criar Nova Refeição</Link>
     </div>
   );
 }

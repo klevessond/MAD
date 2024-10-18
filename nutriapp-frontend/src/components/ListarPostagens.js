@@ -64,7 +64,7 @@ function ListarPostagens() {
           <hr />
         </div>
       ))}
-      <Link to="/criar-postagem">Criar Nova Postagem</Link>
+      <Link to="/CriarPostagem">Criar Nova Postagem</Link>
     </div>
   );
 }

@@ -39,14 +39,14 @@ function ListarPlanosAlimentares() {
       <ul>
         {planos.map(plano => (
           <li key={plano.id}>
-            <Link to={`/plano-alimentar/${plano.id}`}>{plano.titulo}</Link>
+            <Link to={`/CriarPlanoAlimentar/${plano.id}`}>{plano.titulo}</Link>
             {usuarioLogado && plano.autor === usuarioLogado.id && (
-              <Link to={`/editar-plano-alimentar/${plano.id}`}> (Editar)</Link>
+              <Link to={`/EditarPlanoAlimentar/${plano.id}`}> (Editar)</Link>
             )}
           </li>
         ))}
       </ul>
-      <Link to="/criar-plano-alimentar">Criar Novo Plano Alimentar</Link>
+      <Link to="/CriarPlanoAlimentar">Criar Novo Plano Alimentar</Link>
     </div>
   );
 }
