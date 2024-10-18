@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -11,17 +10,18 @@ function EditarPlanoAlimentar() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchPlano();
+    fetchPlanoAlimentar();
   }, [id]);
 
-  const fetchPlano = async () => {
+  const fetchPlanoAlimentar = async () => {
     try {
       const response = await axios.get(`http://localhost:8000/api/planos-alimentares/${id}/`, {
         headers: { Authorization: `Token ${localStorage.getItem('token')}` }
       });
-      setTitulo(response.data.titulo);
-      setDescricao(response.data.descricao);
-      setPublico(response.data.publico);
+      const plano = response.data;
+      setTitulo(plano.titulo);
+      setDescricao(plano.descricao);
+      setPublico(plano.publico);
     } catch (error) {
       console.error('Erro ao buscar detalhes do plano alimentar:', error);
     }
@@ -37,7 +37,7 @@ function EditarPlanoAlimentar() {
       }, {
         headers: { Authorization: `Token ${localStorage.getItem('token')}` }
       });
-      navigate(`/plano-alimentar/${id}`);
+      navigate('/planos-alimentares');
     } catch (error) {
       console.error('Erro ao editar plano alimentar:', error);
     }
@@ -49,15 +49,28 @@ function EditarPlanoAlimentar() {
       <form onSubmit={handleSubmit}>
         <div>
           <label>Título:</label>
-          <input type="text" value={titulo} onChange={(e) => setTitulo(e.target.value)} required />
+          <input 
+            type="text" 
+            value={titulo} 
+            onChange={(e) => setTitulo(e.target.value)} 
+            required
+          />
         </div>
         <div>
           <label>Descrição:</label>
-          <textarea value={descricao} onChange={(e) => setDescricao(e.target.value)} required />
+          <textarea 
+            value={descricao} 
+            onChange={(e) => setDescricao(e.target.value)} 
+            required
+          />
         </div>
         <div>
           <label>
-            <input type="checkbox" checked={publico} onChange={(e) => setPublico(e.target.checked)} />
+            <input 
+              type="checkbox" 
+              checked={publico} 
+              onChange={(e) => setPublico(e.target.checked)} 
+            />
             Público
           </label>
         </div>

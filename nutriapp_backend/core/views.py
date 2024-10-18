@@ -104,6 +104,9 @@ class PlanoAlimentarViewSet(viewsets.ModelViewSet):
     serializer_class = PlanoAlimentarSerializer
     permission_classes = [IsAuthenticated]
 
+    def perform_create(self, serializer):
+        serializer.save(autor=self.request.user)
+
 class SeguidorPlanoViewSet(viewsets.ModelViewSet):
     queryset = SeguidorPlano.objects.all()
     serializer_class = SeguidorPlanoSerializer

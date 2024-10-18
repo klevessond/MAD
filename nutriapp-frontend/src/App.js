@@ -26,6 +26,8 @@ import ListarArtigos from './components/ListarArtigos';
 import EditarArtigo from './components/EditarArtigo';
 import ListarRefeicoes from './components/ListarRefeicoes';
 import EditarRefeicao from './components/EditarRefeicao';
+import ListarPlanoAlimentar from './components/ListarPlanoAlimentar';
+import EditarPlanoAlimentar from './components/EditarPlanoAlimentar';
 
 function App() {
   return (
@@ -37,8 +39,6 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/criar-receita" element={<CriarReceita />} />
           <Route path="/receita/:id" element={<DetalhesReceita />} />
-          <Route path="/criar-plano-alimentar" element={<CriarPlanoAlimentar />} />
-          <Route path="/plano-alimentar/:id" element={<DetalhesPlanoAlimentar />} />
           <Route path="/criar-artigo" element={<CriarArtigo />} />
           <Route path="/artigo/:id" element={<DetalhesArtigo />} />
           <Route path="/criar-refeicao" element={<CriarRefeicao />} />
@@ -58,6 +58,10 @@ function App() {
           <Route path="/editar-artigo/:id" element={<EditarArtigo />} />
           <Route path="/refeicoes" element={<ListarRefeicoes />} />
           <Route path="/editar-refeicao/:id" element={<EditarRefeicao />} />
+          <Route path="/planos-alimentares" element={<ListarPlanoAlimentar />} />
+          <Route path="/criar-plano-alimentar" element={<CriarPlanoAlimentar />} />
+          <Route path="/editar-plano-alimentar/:id" element={<EditarPlanoAlimentar />} />
+
         </Routes>
       </div>
     </Router>

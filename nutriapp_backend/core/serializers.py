@@ -89,7 +89,12 @@ class ArtigoFavoritoSerializer(serializers.ModelSerializer):
 class PlanoAlimentarSerializer(serializers.ModelSerializer):
     class Meta:
         model = PlanoAlimentar
-        fields = '__all__'
+        fields = ['id', 'titulo', 'descricao', 'publico', 'autor', 'data_criacao']
+        read_only_fields = ['autor', 'data_criacao']
+
+    def create(self, validated_data):
+        validated_data['autor'] = self.context['request'].user
+        return super().create(validated_data)
 
 class SeguidorPlanoSerializer(serializers.ModelSerializer):
     class Meta:

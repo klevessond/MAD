@@ -4,9 +4,11 @@ import { Link } from 'react-router-dom';
 
 function ListarPlanosAlimentares() {
   const [planos, setPlanos] = useState([]);
+  const [usuarioLogado, setUsuarioLogado] = useState(null);
 
   useEffect(() => {
     fetchPlanos();
+    fetchUsuarioLogado();
   }, []);
 
   const fetchPlanos = async () => {
@@ -20,6 +22,17 @@ function ListarPlanosAlimentares() {
     }
   };
 
+  const fetchUsuarioLogado = async () => {
+    try {
+      const response = await axios.get('http://localhost:8000/api/user/', {
+        headers: { Authorization: `Token ${localStorage.getItem('token')}` }
+      });
+      setUsuarioLogado(response.data);
+    } catch (error) {
+      console.error('Erro ao buscar usuário logado:', error);
+    }
+  };
+
   return (
     <div>
       <h2>Planos Alimentares</h2>
@@ -27,6 +40,9 @@ function ListarPlanosAlimentares() {
         {planos.map(plano => (
           <li key={plano.id}>
             <Link to={`/plano-alimentar/${plano.id}`}>{plano.titulo}</Link>
+            {usuarioLogado && plano.autor === usuarioLogado.id && (
+              <Link to={`/editar-plano-alimentar/${plano.id}`}> (Editar)</Link>
+            )}
           </li>
         ))}
       </ul>
@@ -36,4 +52,3 @@ function ListarPlanosAlimentares() {
 }
 
 export default ListarPlanosAlimentares;
-

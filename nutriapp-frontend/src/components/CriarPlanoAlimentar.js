@@ -30,15 +30,28 @@ function CriarPlanoAlimentar() {
       <form onSubmit={handleSubmit}>
         <div>
           <label>Título:</label>
-          <input type="text" value={titulo} onChange={(e) => setTitulo(e.target.value)} required />
+          <input 
+            type="text" 
+            value={titulo} 
+            onChange={(e) => setTitulo(e.target.value)} 
+            required
+          />
         </div>
         <div>
           <label>Descrição:</label>
-          <textarea value={descricao} onChange={(e) => setDescricao(e.target.value)} required />
+          <textarea 
+            value={descricao} 
+            onChange={(e) => setDescricao(e.target.value)} 
+            required
+          />
         </div>
         <div>
           <label>
-            <input type="checkbox" checked={publico} onChange={(e) => setPublico(e.target.checked)} />
+            <input 
+              type="checkbox" 
+              checked={publico} 
+              onChange={(e) => setPublico(e.target.checked)} 
+            />
             Público
           </label>
         </div>
