@@ -77,6 +77,8 @@ function Home() {
             <li><Link to="/criar-categoria-artigo">Criar Categoria de Artigo</Link></li>
             <h5>Refeições</h5>
             <li><Link to="/criar-refeicao">Cadastrar Refeição</Link></li>
+            <li><Link to="/refeicoes">Listar Refeições</Link></li>
+            <li><Link to="/editar-refeicao/:id">Editar Refeição</Link></li>
             <h5>Plano Alimentar</h5>
             <li><Link to="/criar-plano-alimentar">Cadastrar Plano Alimentar</Link></li>
             <h5>Postagens</h5>

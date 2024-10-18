@@ -24,6 +24,8 @@ import ListarCategoriasArtigo from './components/ListarCategoriasArtigo';
 import EditarCategoriaArtigo from './components/EditarCategoriaArtigo';
 import ListarArtigos from './components/ListarArtigos';
 import EditarArtigo from './components/EditarArtigo';
+import ListarRefeicoes from './components/ListarRefeicoes';
+import EditarRefeicao from './components/EditarRefeicao';
 
 function App() {
   return (
@@ -54,6 +56,8 @@ function App() {
           <Route path="/editar-categoria-artigo/:id" element={<EditarCategoriaArtigo />} />
           <Route path="/artigos" element={<ListarArtigos />} />
           <Route path="/editar-artigo/:id" element={<EditarArtigo />} />
+          <Route path="/refeicoes" element={<ListarRefeicoes />} />
+          <Route path="/editar-refeicao/:id" element={<EditarRefeicao />} />
         </Routes>
       </div>
     </Router>

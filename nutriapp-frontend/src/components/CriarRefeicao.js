@@ -1,14 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function CriarRefeicao() {
   const [nome, setNome] = useState('');
   const [descricao, setDescricao] = useState('');
   const [horario, setHorario] = useState('');
   const [tipo, setTipo] = useState('');
-  const { planoId } = useParams();
+  const [planoId, setPlanoId] = useState('');
+  const [receitaId, setReceitaId] = useState('');
+  const [planos, setPlanos] = useState([]);
+  const [receitas, setReceitas] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchPlanos();
+    fetchReceitas();
+  }, []);
+
+  const fetchPlanos = async () => {
+    try {
+      const response = await axios.get('http://localhost:8000/api/planos-alimentares/', {
+        headers: { Authorization: `Token ${localStorage.getItem('token')}` }
+      });
+      setPlanos(response.data);
+    } catch (error) {
+      console.error('Erro ao buscar planos:', error);
+    }
+  };
+
+  const fetchReceitas = async () => {
+    try {
+      const response = await axios.get('http://localhost:8000/api/receitas/', {
+        headers: { Authorization: `Token ${localStorage.getItem('token')}` }
+      });
+      setReceitas(response.data);
+    } catch (error) {
+      console.error('Erro ao buscar receitas:', error);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,11 +48,12 @@ function CriarRefeicao() {
         descricao,
         horario,
         tipo,
-        plano: planoId
+        plano: parseInt(planoId),
+        receita: parseInt(receitaId)
       }, {
         headers: { Authorization: `Token ${localStorage.getItem('token')}` }
       });
-      navigate(`/plano-alimentar/${planoId}`);
+      navigate('/refeicoes');
     } catch (error) {
       console.error('Erro ao criar refeição:', error);
     }
@@ -30,7 +61,7 @@ function CriarRefeicao() {
 
   return (
     <div>
-      <h2>Adicionar Nova Refeição</h2>
+      <h2>Criar Nova Refeição</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Nome:</label>
@@ -47,7 +78,7 @@ function CriarRefeicao() {
         <div>
           <label>Tipo:</label>
           <select value={tipo} onChange={(e) => setTipo(e.target.value)} required>
-            <option value="">Selecione...</option>
+            <option value="">Selecione um tipo</option>
             <option value="cafe_da_manha">Café da Manhã</option>
             <option value="lanche_da_manha">Lanche da Manhã</option>
             <option value="almoco">Almoço</option>
@@ -56,7 +87,25 @@ function CriarRefeicao() {
             <option value="ceia">Ceia</option>
           </select>
         </div>
-        <button type="submit">Adicionar Refeição</button>
+        <div>
+          <label>Plano Alimentar:</label>
+          <select value={planoId} onChange={(e) => setPlanoId(e.target.value)} required>
+            <option value="">Selecione um plano</option>
+            {planos.map(plano => (
+              <option key={plano.id} value={plano.id}>{plano.titulo}</option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label>Receita:</label>
+          <select value={receitaId} onChange={(e) => setReceitaId(e.target.value)} required>
+            <option value="">Selecione uma receita</option>
+            {receitas.map(receita => (
+              <option key={receita.id} value={receita.id}>{receita.titulo}</option>
+            ))}
+          </select>
+        </div>
+        <button type="submit">Criar Refeição</button>
       </form>
     </div>
   );
