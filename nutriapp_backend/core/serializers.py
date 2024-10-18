@@ -69,7 +69,12 @@ class CategoriaArtigoSerializer(serializers.ModelSerializer):
 class ArtigoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Artigo
-        fields = '__all__'
+        fields = ['id', 'titulo', 'conteudo', 'categoria', 'autor', 'data_publicacao']
+        read_only_fields = ['autor', 'data_publicacao']
+
+    def create(self, validated_data):
+        validated_data['autor'] = self.context['request'].user
+        return super().create(validated_data)
 
 class ImagemArtigoSerializer(serializers.ModelSerializer):
     class Meta:
