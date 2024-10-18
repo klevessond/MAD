@@ -26,7 +26,8 @@ function ListarCategoriasReceitas() {
       <ul>
         {categorias.map(categoria => (
           <li key={categoria.id}>
-            <Link to={`/categoria-receita/${categoria.id}`}>{categoria.nome}</Link>
+            <Link to={`/categoria-receita/${categoria.id}`}>{categoria.nome}</Link> 
+            <Link to={`/editar-categoria-receita/${categoria.id}`}>Editar</Link>
           </li>
         ))}
       </ul>

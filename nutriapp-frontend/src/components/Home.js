@@ -66,14 +66,15 @@ function Home() {
           <h3>Opções para Nutricionistas:</h3>
           <ul>
             <li><Link to="/criar-receita">Criar Nova Receita</Link></li>
+            <li><Link to="/receitas">Listar Receitas</Link></li>
             <li><Link to="/criar-artigo">Cadastrar Artigo</Link></li>
             <li><Link to="/criar-refeicao">Cadastrar Refeição</Link></li>
             <li><Link to="/criar-plano-alimentar">Cadastrar Plano Alimentar</Link></li>
             <li><Link to="/criar-postagem">Cadastrar Postagem</Link></li>
-            <li><Link to="/categorias-receitas">Listar Categorias de Receitas</Link></li>
             <li><Link to="/criar-categoria-receita">Criar Categoria de Receita</Link></li>
-            <li><Link to="/editar-postagem/:id">Editar Postagem</Link></li>
-            <li><Link to="/editar-categoria-receita/:id">Editar Categoria de Receita</Link></li>
+            <li><Link to="/categorias-receitas">Listar Categorias de Receitas</Link></li>
+             <li><Link to="/editar-postagem/:id">Editar Postagem</Link></li>
+            
           </ul>
         </div>
       )}

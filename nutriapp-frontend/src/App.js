@@ -17,6 +17,8 @@ import EditarPostagem from './components/EditarPostagem';
 import ListarCategoriasReceitas from './components/ListarCategoriasReceitas';
 import CriarCategoriaReceita from './components/CriarCategoriaReceita';
 import EditarCategoriaReceita from './components/EditarCategoriaReceita';
+import ListarReceitas from './components/ListarReceitas';
+import EditarReceita from './components/EditarReceita';
 
 function App() {
   return (
@@ -40,6 +42,8 @@ function App() {
           <Route path="/categorias-receitas" element={<ListarCategoriasReceitas />} />
           <Route path="/criar-categoria-receita" element={<CriarCategoriaReceita />} />
           <Route path="/editar-categoria-receita/:id" element={<EditarCategoriaReceita />} />
+          <Route path="/receitas" element={<ListarReceitas />} />
+          <Route path="/editar-receita/:id" element={<EditarReceita />} />
         </Routes>
       </div>
     </Router>
