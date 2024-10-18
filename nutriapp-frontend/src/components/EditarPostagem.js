@@ -5,11 +5,14 @@ import { useParams, useNavigate } from 'react-router-dom';
 function EditarPostagem() {
   const [conteudo, setConteudo] = useState('');
   const [imagem, setImagem] = useState('');
+  const [refeicaoId, setRefeicaoId] = useState('');
+  const [refeicoes, setRefeicoes] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchPostagem();
+    fetchRefeicoes();
   }, [id]);
 
   const fetchPostagem = async () => {
@@ -17,10 +20,23 @@ function EditarPostagem() {
       const response = await axios.get(`http://localhost:8000/api/postagens-usuarios/${id}/`, {
         headers: { Authorization: `Token ${localStorage.getItem('token')}` }
       });
-      setConteudo(response.data.conteudo);
-      setImagem(response.data.imagem || '');
+      const postagem = response.data;
+      setConteudo(postagem.conteudo);
+      setImagem(postagem.imagem || '');
+      setRefeicaoId(postagem.refeicao || '');
     } catch (error) {
       console.error('Erro ao buscar detalhes da postagem:', error);
+    }
+  };
+
+  const fetchRefeicoes = async () => {
+    try {
+      const response = await axios.get('http://localhost:8000/api/refeicoes/', {
+        headers: { Authorization: `Token ${localStorage.getItem('token')}` }
+      });
+      setRefeicoes(response.data);
+    } catch (error) {
+      console.error('Erro ao buscar refeições:', error);
     }
   };
 
@@ -29,11 +45,12 @@ function EditarPostagem() {
     try {
       await axios.put(`http://localhost:8000/api/postagens-usuarios/${id}/`, {
         conteudo,
-        imagem
+        imagem,
+        refeicao: refeicaoId || null
       }, {
         headers: { Authorization: `Token ${localStorage.getItem('token')}` }
       });
-      navigate(`/postagem/${id}`);
+      navigate('/postagens');
     } catch (error) {
       console.error('Erro ao editar postagem:', error);
     }
@@ -56,8 +73,20 @@ function EditarPostagem() {
           <input 
             type="text" 
             value={imagem} 
-            onChange={(e) => setImagem(e.target.value)}
+            onChange={(e) => setImagem(e.target.value)} 
           />
+        </div>
+        <div>
+          <label>Refeição (opcional):</label>
+          <select 
+            value={refeicaoId} 
+            onChange={(e) => setRefeicaoId(e.target.value)}
+          >
+            <option value="">Selecione uma refeição</option>
+            {refeicoes.map(refeicao => (
+              <option key={refeicao.id} value={refeicao.id}>{refeicao.nome}</option>
+            ))}
+          </select>
         </div>
         <button type="submit">Salvar Alterações</button>
       </form>
@@ -66,4 +95,3 @@ function EditarPostagem() {
 }
 
 export default EditarPostagem;
-

@@ -28,6 +28,7 @@ import ListarRefeicoes from './components/ListarRefeicoes';
 import EditarRefeicao from './components/EditarRefeicao';
 import ListarPlanoAlimentar from './components/ListarPlanoAlimentar';
 import EditarPlanoAlimentar from './components/EditarPlanoAlimentar';
+import ListarPostagens from './components/ListarPostagens';
 
 function App() {
   return (
@@ -61,7 +62,7 @@ function App() {
           <Route path="/planos-alimentares" element={<ListarPlanoAlimentar />} />
           <Route path="/criar-plano-alimentar" element={<CriarPlanoAlimentar />} />
           <Route path="/editar-plano-alimentar/:id" element={<EditarPlanoAlimentar />} />
-
+          <Route path="/ListarPostagens" element={<ListarPostagens />} />
         </Routes>
       </div>
     </Router>

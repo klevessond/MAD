@@ -107,9 +107,17 @@ class RefeicaoSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class PostagemUsuarioSerializer(serializers.ModelSerializer):
+    autor_nome = serializers.ReadOnlyField(source='autor.username')
+    refeicao_nome = serializers.ReadOnlyField(source='refeicao.nome', allow_null=True)
+
     class Meta:
         model = PostagemUsuario
-        fields = '__all__'
+        fields = ['id', 'autor', 'autor_nome', 'conteudo', 'imagem', 'data_publicacao', 'refeicao', 'refeicao_nome']
+        read_only_fields = ['autor', 'data_publicacao']
+
+    def create(self, validated_data):
+        validated_data['autor'] = self.context['request'].user
+        return super().create(validated_data)
 
 class ComentarioPlanoSerializer(serializers.ModelSerializer):
     class Meta:

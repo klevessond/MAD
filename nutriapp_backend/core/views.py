@@ -3,7 +3,8 @@ from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate
 from rest_framework.views import APIView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.exceptions import PermissionDenied
 from .models import (Recipe,User, CategoriaReceita, Receita, ImagemReceita, ReceitaFavorita,
     CategoriaArtigo, Artigo, ImagemArtigo, ArtigoFavorito,
     PlanoAlimentar, SeguidorPlano, Refeicao,  PostagemUsuario,
@@ -120,7 +121,22 @@ class RefeicaoViewSet(viewsets.ModelViewSet):
 class PostagemUsuarioViewSet(viewsets.ModelViewSet):
     queryset = PostagemUsuario.objects.all()
     serializer_class = PostagemUsuarioSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def perform_create(self, serializer):
+        serializer.save(autor=self.request.user)
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        if instance.autor != request.user:
+            raise PermissionDenied("Você não tem permissão para editar esta postagem.")
+        return super().update(request, *args, **kwargs)
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        if instance.autor != request.user:
+            raise PermissionDenied("Você não tem permissão para excluir esta postagem.")
+        return super().destroy(request, *args, **kwargs)
 
 class ComentarioPlanoViewSet(viewsets.ModelViewSet):
     queryset = ComentarioPlano.objects.all()
