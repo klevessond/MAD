@@ -1,5 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import styled from 'styled-components';
+import Sidebar from './components/Sidebar';
+import Feed from './components/Feed';
+import RightSidebar from './components/RightSidebar';
 import Login from './components/Login';
 import Register from './components/Register';
 import Home from './components/Home';
@@ -31,11 +35,27 @@ import DetalharArtigo from './components/DetalharArtigo';
 import DetalharCategoriaReceita from './components/DetalharCategoriaReceita';
 import DetalharCategoriaArtigo from './components/DetalharCategoriaArtigo';
 
+
+const AppContainer = styled.div`
+  display: flex;
+  max-width: 1280px;
+  margin: 0 auto;
+  height: 100vh;
+`;
+
+const MainContent = styled.main`
+  flex: 1;
+  border-left: 1px solid #e6ecf0;
+  border-right: 1px solid #e6ecf0;
+`;
+
 function App() {
   return (
     <Router>
-      <div className="App">
-        <Routes>
+      <AppContainer>
+        <Sidebar />
+        <MainContent>
+          <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
@@ -67,8 +87,10 @@ function App() {
           <Route path="/DetalharCategoriaReceita/:id" element={<DetalharCategoriaReceita />} />
           <Route path="/DetalharCategoriaArtigo/:id" element={<DetalharCategoriaArtigo />} />
           {/* Adicione outras rotas conforme necessário */}
-        </Routes>
-      </div>
+          </Routes>
+        </MainContent>
+        <RightSidebar />
+      </AppContainer>
     </Router>
   );
 }
