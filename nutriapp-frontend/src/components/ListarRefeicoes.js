@@ -52,7 +52,7 @@ function ListarRefeicoes() {
       <ul>
         {refeicoes.map(refeicao => (
           <li key={refeicao.id}>
-            {refeicao.nome} - {refeicao.tipo}
+            <Link to={`/DetalharRefeicao/${refeicao.id}`}>{refeicao.nome} - {refeicao.tipo}</Link>
             {usuarioLogado && (
               <>
                 <Link to={`/EditarRefeicao/${refeicao.id}`}> (Editar)</Link>

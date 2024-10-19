@@ -10,6 +10,7 @@ function CriarReceita() {
   const [dificuldade, setDificuldade] = useState('');
   const [categoriaId, setCategoriaId] = useState('');
   const [categorias, setCategorias] = useState([]);
+  const [imagem, setImagem] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,18 +30,23 @@ function CriarReceita() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const receitaData = {
-      titulo,
-      descricao,
-      modo_preparo: modoPreparo,
-      tempo_preparo: parseInt(tempoPreparo),
-      dificuldade,
-      categoria: parseInt(categoriaId)
-    };
+    const receitaData = new FormData();
+    receitaData.append('titulo', titulo);
+    receitaData.append('descricao', descricao);
+    receitaData.append('modo_preparo', modoPreparo);
+    receitaData.append('tempo_preparo', parseInt(tempoPreparo));
+    receitaData.append('dificuldade', dificuldade);
+    receitaData.append('categoria', parseInt(categoriaId));
+    if (imagem) {
+      receitaData.append('imagem', imagem);
+    }
     console.log('Dados da receita:', receitaData);
     try {
       const response = await axios.post('http://localhost:8000/api/receitas/', receitaData, {
-        headers: { Authorization: `Token ${localStorage.getItem('token')}` }
+        headers: {
+          'Authorization': `Token ${localStorage.getItem('token')}`,
+          'Content-Type': 'multipart/form-data'
+        }
       });
       console.log('Resposta do servidor:', response.data);
       navigate('/');
@@ -89,6 +95,10 @@ function CriarReceita() {
               <option key={categoria.id} value={categoria.id}>{categoria.nome}</option>
             ))}
           </select>
+        </div>
+        <div>
+          <label>Imagem:</label>
+          <input type="file" onChange={(e) => setImagem(e.target.files[0])} required />
         </div>
         <button type="submit">Criar Receita</button>
       </form>

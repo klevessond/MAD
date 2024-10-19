@@ -68,13 +68,13 @@ function Home() {
             <h5>Receitas</h5>
             <li><Link to="/CriarReceita">Criar Nova Receita</Link></li>
             <li><Link to="/ListarReceitas">Listar Receitas</Link></li>
-            <li><Link to="/criar-categoria-receita">Criar Categoria de Receita</Link></li>
-            <li><Link to="/categorias-receitas">Listar Categorias de Receitas</Link></li>
+            <li><Link to="/CriarCategoriaReceita">Criar Categoria de Receita</Link></li>
+            <li><Link to="/ListarCategoriasReceitas">Listar Categorias de Receitas</Link></li>
             <h5>Artigos</h5>
             <li><Link to="/CriarArtigo">Cadastrar Artigo</Link></li>
             <li><Link to="/ListarArtigos">Listar Artigos</Link></li>
-            <li><Link to="/ListarCategoriasReceitas">Listar Categorias de Artigos</Link></li>
-            <li><Link to="/CriarCategoriaReceita">Criar Categoria de Artigo</Link></li>
+            <li><Link to="/ListarCategoriasArtigo">Listar Categorias de Artigos</Link></li>
+            <li><Link to="/CriarCategoriaArtigo">Criar Categoria de Artigo</Link></li>
             <h5>Refeições</h5>
             <li><Link to="/CriarRefeicao">Cadastrar Refeição</Link></li>
             <li><Link to="/ListarRefeicoes">Listar Refeições</Link></li>

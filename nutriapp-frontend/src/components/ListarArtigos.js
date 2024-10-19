@@ -39,7 +39,7 @@ function ListarArtigos() {
       <ul>
         {artigos.map(artigo => (
           <li key={artigo.id}>
-            <Link to={`/artigo/${artigo.id}`}>{artigo.titulo}</Link>
+            <Link to={`/DetalharArtigo/${artigo.id}`}>{artigo.titulo}</Link>
             {usuarioLogado && usuarioLogado.id === artigo.autor && (
               <Link to={`/EditarArtigo/${artigo.id}`}> (Editar)</Link>
             )}

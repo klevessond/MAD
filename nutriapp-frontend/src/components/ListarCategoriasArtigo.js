@@ -52,7 +52,7 @@ function ListarCategoriasArtigo() {
       <ul>
         {categorias.map(categoria => (
           <li key={categoria.id}>
-            {categoria.nome}
+            <Link to={`/DetalharCategoriaArtigo/${categoria.id}`}>{categoria.nome}</Link>
             {usuarioLogado && usuarioLogado.is_staff && (
               <>
                 <Link to={`/EditarCategoriaReceita/${categoria.id}`}> (Editar)</Link>

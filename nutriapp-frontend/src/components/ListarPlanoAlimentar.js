@@ -39,7 +39,7 @@ function ListarPlanosAlimentares() {
       <ul>
         {planos.map(plano => (
           <li key={plano.id}>
-            <Link to={`/CriarPlanoAlimentar/${plano.id}`}>{plano.titulo}</Link>
+            <Link to={`/DetalharPlanoAlimentar/${plano.id}`}>{plano.titulo}</Link>
             {usuarioLogado && plano.autor === usuarioLogado.id && (
               <Link to={`/EditarPlanoAlimentar/${plano.id}`}> (Editar)</Link>
             )}

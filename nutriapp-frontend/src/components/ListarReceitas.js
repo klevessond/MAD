@@ -39,7 +39,7 @@ function ListarReceitas() {
       <ul>
         {receitas.map(receita => (
           <li key={receita.id}>
-            <Link to={`/receita/${receita.id}`}>{receita.titulo}</Link>
+            <Link to={`/DetalharReceita/${receita.id}`}>{receita.titulo}</Link>
             {usuarioLogado && usuarioLogado.id === receita.autor && (
               <Link to={`/EditarReceita/${receita.id}`}> (Editar)</Link>
             )}

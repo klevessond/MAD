@@ -7,6 +7,7 @@ function CriarArtigo() {
   const [conteudo, setConteudo] = useState('');
   const [categoriaId, setCategoriaId] = useState('');
   const [categorias, setCategorias] = useState([]);
+  const [imagem, setImagem] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,13 +27,19 @@ function CriarArtigo() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const artigoData = new FormData();
+    artigoData.append('titulo', titulo);
+    artigoData.append('conteudo', conteudo);
+    artigoData.append('categoria', parseInt(categoriaId));
+    if (imagem) {
+      artigoData.append('imagem', imagem);
+    }
     try {
-      await axios.post('http://localhost:8000/api/artigos/', {
-        titulo,
-        conteudo,
-        categoria: parseInt(categoriaId)
-      }, {
-        headers: { Authorization: `Token ${localStorage.getItem('token')}` }
+      await axios.post('http://localhost:8000/api/artigos/', artigoData, {
+        headers: {
+          'Authorization': `Token ${localStorage.getItem('token')}`,
+          'Content-Type': 'multipart/form-data'
+        }
       });
       navigate('/artigos');
     } catch (error) {
@@ -61,6 +68,10 @@ function CriarArtigo() {
             ))}
           </select>
         </div>
+        <div>
+          <label>Imagem:</label>
+          <input type="file" onChange={(e) => setImagem(e.target.files[0])} required />
+        </div>
         <button type="submit">Criar Artigo</button>
       </form>
     </div>
@@ -68,4 +79,3 @@ function CriarArtigo() {
 }
 
 export default CriarArtigo;
-

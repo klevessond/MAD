@@ -6,11 +6,8 @@ import Home from './components/Home';
 import CriarReceita from './components/CriarReceita';
 import CriarPlanoAlimentar from './components/CriarPlanoAlimentar';
 import CriarArtigo from './components/CriarArtigo';
-import DetalhesArtigo from './components/DetalhesArtigo';
 import CriarRefeicao from './components/CriarRefeicao';
-import DetalhesRefeicao from './components/DetalhesRefeicao';
 import CriarPostagem from './components/CriarPostagem';
-import DetalhesPostagem from './components/DetalhesPostagem';
 import EditarPostagem from './components/EditarPostagem';
 import ListarCategoriasReceitas from './components/ListarCategoriasReceitas';
 import CriarCategoriaReceita from './components/CriarCategoriaReceita';
@@ -27,6 +24,12 @@ import EditarRefeicao from './components/EditarRefeicao';
 import ListarPlanoAlimentar from './components/ListarPlanoAlimentar';
 import EditarPlanoAlimentar from './components/EditarPlanoAlimentar';
 import ListarPostagens from './components/ListarPostagens';
+import DetalharReceita from './components/DetalharReceita';
+import DetalharRefeicao from './components/DetalharRefeicao';
+import DetalharPlanoAlimentar from './components/DetalharPlanoAlimentar';
+import DetalharArtigo from './components/DetalharArtigo';
+import DetalharCategoriaReceita from './components/DetalharCategoriaReceita';
+import DetalharCategoriaArtigo from './components/DetalharCategoriaArtigo';
 
 function App() {
   return (
@@ -36,7 +39,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/CriarReceita" element={<CriarReceita />} />          
+          <Route path="/CriarReceita" element={<CriarReceita />} />
+          <Route path="/ListarReceitas" element={<ListarReceitas />} />          
           <Route path="/CriarArtigo" element={<CriarArtigo />} />
           <Route path="/ListarArtigos" element={<ListarArtigos />} />
           <Route path="/CriarRefeicao" element={<CriarRefeicao />} />
@@ -46,8 +50,7 @@ function App() {
           <Route path="/EditarPostagem/:id" element={<EditarPostagem />} />
           <Route path="/ListarCategoriasReceitas" element={<ListarCategoriasReceitas />} />
           <Route path="/CriarCategoriaReceita" element={<CriarCategoriaReceita />} />
-          <Route path="/EditarCategoriaReceita/:id" element={<EditarCategoriaReceita />} />
-          <Route path="/ListarReceitas" element={<ListarReceitas />} />
+          <Route path="/EditarCategoriaReceita/:id" element={<EditarCategoriaReceita />} />          
           <Route path="/EditarReceita/:id" element={<EditarReceita />} />
           <Route path="/ListarCategoriasArtigo" element={<ListarCategoriasArtigo />} />
           <Route path="/CriarCategoriaArtigo" element={<CriarCategoriaArtigo />} />
@@ -57,7 +60,13 @@ function App() {
           <Route path="/ListarPlanoAlimentar" element={<ListarPlanoAlimentar />} />
           <Route path="/CriarPlanoAlimentar" element={<CriarPlanoAlimentar />} />
           <Route path="/EditarPlanoAlimentar/:id" element={<EditarPlanoAlimentar />} />
-          
+          <Route path="/DetalharReceita/:id" element={<DetalharReceita />} />
+          <Route path="/DetalharRefeicao/:id" element={<DetalharRefeicao />} />
+          <Route path="/DetalharPlanoAlimentar/:id" element={<DetalharPlanoAlimentar />} />
+          <Route path="/DetalharArtigo/:id" element={<DetalharArtigo />} />
+          <Route path="/DetalharCategoriaReceita/:id" element={<DetalharCategoriaReceita />} />
+          <Route path="/DetalharCategoriaArtigo/:id" element={<DetalharCategoriaArtigo />} />
+          {/* Adicione outras rotas conforme necessário */}
         </Routes>
       </div>
     </Router>
