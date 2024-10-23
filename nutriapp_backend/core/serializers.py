@@ -83,20 +83,39 @@ class CategoriaArtigoSerializer(serializers.ModelSerializer):
         model = CategoriaArtigo
         fields = '__all__'
 
+
+class ImagemArtigoSerializer(serializers.ModelSerializer):
+    url_imagem_completa = serializers.SerializerMethodField()
+
+    class Meta:
+        model = ImagemArtigo
+        fields = ['id', 'url_imagem', 'url_imagem_completa']
+
+    def get_url_imagem_completa(self, obj):
+        if obj.url_imagem:
+            return self.context['request'].build_absolute_uri(obj.url_imagem.url)
+        return None
+    
 class ArtigoSerializer(serializers.ModelSerializer):
+    imagens = ImagemArtigoSerializer(many=True, read_only=True, source='imagemartigo_set')
+    imagem = serializers.ImageField(write_only=True, required=False)
+
     class Meta:
         model = Artigo
-        fields = ['id', 'titulo', 'conteudo', 'categoria', 'autor', 'data_publicacao']
+        fields = ['id', 'titulo', 'conteudo', 'categoria', 'autor', 'data_publicacao', 'imagens', 'imagem']
         read_only_fields = ['autor', 'data_publicacao']
 
     def create(self, validated_data):
+        imagem = validated_data.pop('imagem', None)
         validated_data['autor'] = self.context['request'].user
-        return super().create(validated_data)
+        artigo = super().create(validated_data)
+        
+        if imagem:
+            ImagemArtigo.objects.create(artigo=artigo, url_imagem=imagem)
+        
+        return artigo
 
-class ImagemArtigoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ImagemArtigo
-        fields = '__all__'
+
 
 class ArtigoFavoritoSerializer(serializers.ModelSerializer):
     class Meta:

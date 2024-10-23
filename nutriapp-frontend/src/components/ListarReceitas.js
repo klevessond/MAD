@@ -39,11 +39,13 @@ function ListarReceitas() {
       <div className="receitas-grid">
         {receitas.map(receita => (
           <div key={receita.id} className="receita-card">
+            
+            <h3>{receita.titulo}</h3>
+            <Link to={`/DetalharReceita/${receita.id}`}>
             {receita.imagens && receita.imagens.length > 0 && (
               <img src={receita.imagens[0].url_imagem_completa} alt={receita.titulo} className="receita-imagem" />
             )}
-            <h3>{receita.titulo}</h3>
-            <Link to={`/DetalharReceita/${receita.id}`}>Ver detalhes</Link>
+            Ver detalhes</Link>
             {usuarioLogado && usuarioLogado.id === receita.autor && (
               <Link to={`/EditarReceita/${receita.id}`}> (Editar)</Link>
             )}

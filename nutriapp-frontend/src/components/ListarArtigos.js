@@ -35,17 +35,21 @@ function ListarArtigos() {
 
   return (
     <div>
-      <h2>Artigos</h2>
-      <ul>
+      <h2>Lista de Artigos</h2>
+      <div className="artigos-grid">
         {artigos.map(artigo => (
-          <li key={artigo.id}>
-            <Link to={`/DetalharArtigo/${artigo.id}`}>{artigo.titulo}</Link>
+          <div key={artigo.id} className="artigo-card">
+            {artigo.imagens && artigo.imagens.length > 0 && (
+              <img src={artigo.imagens[0].url_imagem_completa} alt={artigo.titulo} className="artigo-imagem" />
+            )}
+            <h3>{artigo.titulo}</h3>
+            <Link to={`/DetalharArtigo/${artigo.id}`}>Ver detalhes</Link>
             {usuarioLogado && usuarioLogado.id === artigo.autor && (
               <Link to={`/EditarArtigo/${artigo.id}`}> (Editar)</Link>
             )}
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
       <Link to="/CriarArtigo">Criar Novo Artigo</Link>
     </div>
   );

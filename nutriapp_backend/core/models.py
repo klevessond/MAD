@@ -60,7 +60,7 @@ class Artigo(models.Model):
 
 class ImagemArtigo(models.Model):
     artigo = models.ForeignKey(Artigo, on_delete=models.CASCADE)
-    url_imagem = models.CharField(max_length=255)
+    url_imagem = models.ImageField(upload_to='artigos/')
 
 class ArtigoFavorito(models.Model):
     artigo = models.ForeignKey(Artigo, on_delete=models.CASCADE)

@@ -99,6 +99,15 @@ class ArtigoViewSet(viewsets.ModelViewSet):
     queryset = Artigo.objects.all()
     serializer_class = ArtigoSerializer
     permission_classes = [IsAuthenticated]
+    parser_classes = (MultiPartParser, FormParser)
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context.update({"request": self.request})
+        return context
+
+    def perform_create(self, serializer):
+        serializer.save(autor=self.request.user)
 
 class ImagemArtigoViewSet(viewsets.ModelViewSet):
     queryset = ImagemArtigo.objects.all()

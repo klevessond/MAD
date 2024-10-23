@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
+import './EditarReceita.css';
 
 function EditarReceita() {
+  const [receita, setReceita] = useState(null);
   const [titulo, setTitulo] = useState('');
   const [descricao, setDescricao] = useState('');
   const [modoPreparo, setModoPreparo] = useState('');
@@ -10,6 +12,7 @@ function EditarReceita() {
   const [dificuldade, setDificuldade] = useState('');
   const [categoriaId, setCategoriaId] = useState('');
   const [categorias, setCategorias] = useState([]);
+  const [novasImagens, setNovasImagens] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -23,15 +26,16 @@ function EditarReceita() {
       const response = await axios.get(`http://localhost:8000/api/receitas/${id}/`, {
         headers: { Authorization: `Token ${localStorage.getItem('token')}` }
       });
-      const receita = response.data;
-      setTitulo(receita.titulo);
-      setDescricao(receita.descricao);
-      setModoPreparo(receita.modo_preparo);
-      setTempoPreparo(receita.tempo_preparo.toString());
-      setDificuldade(receita.dificuldade);
-      setCategoriaId(receita.categoria.toString());
+      const receitaData = response.data;
+      setReceita(receitaData);
+      setTitulo(receitaData.titulo);
+      setDescricao(receitaData.descricao);
+      setModoPreparo(receitaData.modo_preparo);
+      setTempoPreparo(receitaData.tempo_preparo);
+      setDificuldade(receitaData.dificuldade);
+      setCategoriaId(receitaData.categoria);
     } catch (error) {
-      console.error('Erro ao buscar detalhes da receita:', error);
+      console.error('Erro ao buscar receita:', error);
     }
   };
 
@@ -48,25 +52,52 @@ function EditarReceita() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append('titulo', titulo);
+    formData.append('descricao', descricao);
+    formData.append('modo_preparo', modoPreparo);
+    formData.append('tempo_preparo', tempoPreparo);
+    formData.append('dificuldade', dificuldade);
+    formData.append('categoria', categoriaId);
+    
+    novasImagens.forEach((imagem, index) => {
+      formData.append(`novas_imagens[${index}]`, imagem);
+    });
+
     try {
-      await axios.put(`http://localhost:8000/api/receitas/${id}/`, {
-        titulo,
-        descricao,
-        modo_preparo: modoPreparo,
-        tempo_preparo: parseInt(tempoPreparo),
-        dificuldade,
-        categoria: parseInt(categoriaId)
-      }, {
-        headers: { Authorization: `Token ${localStorage.getItem('token')}` }
+      await axios.put(`http://localhost:8000/api/receitas/${id}/`, formData, {
+        headers: {
+          'Authorization': `Token ${localStorage.getItem('token')}`,
+          'Content-Type': 'multipart/form-data'
+        }
       });
-      navigate(`/receita/${id}`);
+      navigate(`/DetalharReceita/${id}`);
     } catch (error) {
-      console.error('Erro ao editar receita:', error);
+      console.error('Erro ao atualizar receita:', error);
     }
   };
 
+  const handleImagemDelete = async (imagemId) => {
+    try {
+      await axios.delete(`http://localhost:8000/api/imagens-receitas/${imagemId}/`, {
+        headers: { Authorization: `Token ${localStorage.getItem('token')}` }
+      });
+      fetchReceita(); // Recarrega a receita para atualizar as imagens
+    } catch (error) {
+      console.error('Erro ao excluir imagem:', error);
+    }
+  };
+
+  const handleNovasImagens = (e) => {
+    setNovasImagens([...novasImagens, ...e.target.files]);
+  };
+
+  if (!receita) {
+    return <div>Carregando...</div>;
+  }
+
   return (
-    <div>
+    <div className="editar-receita">
       <h2>Editar Receita</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -103,7 +134,22 @@ function EditarReceita() {
             ))}
           </select>
         </div>
-        <button type="submit">Salvar Alterações</button>
+        <div>
+          <label>Imagens atuais:</label>
+          <div className="imagens-atuais">
+            {receita.imagens && receita.imagens.map((imagem) => (
+              <div key={imagem.id} className="imagem-item">
+                <img src={imagem.url_imagem_completa} alt={`Imagem ${imagem.id}`} />
+                <button type="button" onClick={() => handleImagemDelete(imagem.id)}>Excluir</button>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div>
+          <label>Adicionar novas imagens:</label>
+          <input type="file" multiple onChange={handleNovasImagens} />
+        </div>
+        <button type="submit">Atualizar Receita</button>
       </form>
     </div>
   );
