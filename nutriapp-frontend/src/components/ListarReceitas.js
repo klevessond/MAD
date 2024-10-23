@@ -36,16 +36,20 @@ function ListarReceitas() {
   return (
     <div>
       <h2>Lista de Receitas</h2>
-      <ul>
+      <div className="receitas-grid">
         {receitas.map(receita => (
-          <li key={receita.id}>
-            <Link to={`/DetalharReceita/${receita.id}`}>{receita.titulo}</Link>
+          <div key={receita.id} className="receita-card">
+            {receita.imagens && receita.imagens.length > 0 && (
+              <img src={receita.imagens[0].url_imagem_completa} alt={receita.titulo} className="receita-imagem" />
+            )}
+            <h3>{receita.titulo}</h3>
+            <Link to={`/DetalharReceita/${receita.id}`}>Ver detalhes</Link>
             {usuarioLogado && usuarioLogado.id === receita.autor && (
               <Link to={`/EditarReceita/${receita.id}`}> (Editar)</Link>
             )}
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
       <Link to="/CriarReceita">Criar Nova Receita</Link>
     </div>
   );

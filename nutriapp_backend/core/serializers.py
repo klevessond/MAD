@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model, authenticate
+from django.conf import settings
 from .models import (Recipe,  CategoriaReceita, Receita, ImagemReceita, ReceitaFavorita,
     CategoriaArtigo, Artigo, ImagemArtigo, ArtigoFavorito,
     PlanoAlimentar, SeguidorPlano, Refeicao, PostagemUsuario,
@@ -41,20 +42,36 @@ class CategoriaReceitaSerializer(serializers.ModelSerializer):
         model = CategoriaReceita
         fields = '__all__'
 
+class ImagemReceitaSerializer(serializers.ModelSerializer):
+    url_imagem_completa = serializers.SerializerMethodField()
+
+    class Meta:
+        model = ImagemReceita
+        fields = ['id', 'url_imagem', 'url_imagem_completa']
+
+    def get_url_imagem_completa(self, obj):
+        if obj.url_imagem:
+            return self.context['request'].build_absolute_uri(obj.url_imagem.url)
+        return None
+
 class ReceitaSerializer(serializers.ModelSerializer):
+    imagens = ImagemReceitaSerializer(many=True, read_only=True, source='imagemreceita_set')
+    imagem = serializers.ImageField(write_only=True, required=False)
+
     class Meta:
         model = Receita
-        fields = ['id', 'titulo', 'descricao', 'modo_preparo', 'tempo_preparo', 'dificuldade', 'categoria', 'autor']
+        fields = ['id', 'titulo', 'descricao', 'modo_preparo', 'tempo_preparo', 'dificuldade', 'categoria', 'autor', 'imagens', 'imagem']
         read_only_fields = ['autor']
 
     def create(self, validated_data):
+        imagem = validated_data.pop('imagem', None)
         validated_data['autor'] = self.context['request'].user
-        return super().create(validated_data)
-
-class ImagemReceitaSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ImagemReceita
-        fields = '__all__'
+        receita = super().create(validated_data)
+        
+        if imagem:
+            ImagemReceita.objects.create(receita=receita, url_imagem=imagem)
+        
+        return receita
 
 class ReceitaFavoritaSerializer(serializers.ModelSerializer):
     class Meta:

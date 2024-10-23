@@ -41,7 +41,7 @@ class Receita(models.Model):
 
 class ImagemReceita(models.Model):
     receita = models.ForeignKey(Receita, on_delete=models.CASCADE)
-    url_imagem = models.CharField(max_length=255)
+    url_imagem = models.ImageField(upload_to='receitas/')
 
 class ReceitaFavorita(models.Model):
     receita = models.ForeignKey(Receita, on_delete=models.CASCADE)

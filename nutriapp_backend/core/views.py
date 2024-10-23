@@ -20,6 +20,7 @@ from .serializers import (UserSerializer, LoginSerializer,RecipeSerializer,Categ
     ComentarioReceitaSerializer, ComentarioRefeicaoSerializer,
     ComentarioPostagemSerializer
 )
+from rest_framework.parsers import MultiPartParser, FormParser
 
 
 class RegisterView(generics.CreateAPIView):
@@ -65,6 +66,15 @@ class ReceitaViewSet(viewsets.ModelViewSet):
     queryset = Receita.objects.all()
     serializer_class = ReceitaSerializer
     permission_classes = [IsAuthenticated]
+    parser_classes = (MultiPartParser, FormParser)
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context.update({"request": self.request})
+        return context
+
+    def perform_create(self, serializer):
+        serializer.save(autor=self.request.user)
 
     def create(self, request, *args, **kwargs):
         print("Dados recebidos:", request.data)
